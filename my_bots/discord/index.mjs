@@ -107,4 +107,4 @@ if (command === 'stats' && args.length > 1) {
 }
 }
 
-await client.login('ODYwODgyMzIzOTE3MzczNDUw.YOBtJA.wfYRmOlz8pnZ0noAecTLObAyi3I');
+await client.login(process.env.BOTTOKEN);
