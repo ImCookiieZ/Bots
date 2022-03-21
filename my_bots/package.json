@@ -1,0 +1,23 @@
+{
+  "name": "my_bots",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon -e js,mjs -r dotenv/config",
+    "test": "tests run"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "call-of-duty-api": "^3.1.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
+    "tmi": "^2.0.0",
+    "tmi.js": "^1.8.5"
+  }
+}
