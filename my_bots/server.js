@@ -1,6 +1,7 @@
 import { db_adm_conn } from "./db/index.mjs";
-import { client, reloadTwitchClient } from "./twitch/index.js";
+import { reloadTwitchClient } from "./twitch/index.js";
 import { client as dc } from "./discord/index.mjs";
+import { router} from './spotify/index.mjs'
 import Express from 'express'
 import http from 'http'
 
@@ -78,5 +79,5 @@ app.post('/commands', async (req, res) => {
         res.status(500).send(err)
     }
 })
-
+app.use(router)
 server.listen(process.env.PORT, () => console.log(` server stated on port ${process.env.PORT}`))

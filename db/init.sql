@@ -8,9 +8,10 @@ CREATE TABLE IF NOT EXISTS channels
 CREATE TABLE IF NOT EXISTS tokens
 (
     token_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    token_name VARCHAR(48) NOT NULL,
     expires_at VARCHAR(50) NOT NULL,
-    token VARCHAR(1024) NOT NULL,
+    access_token VARCHAR(1024) NOT NULL,
+    refresh_token VARCHAR(1024) NOT NULL,
+    service_name VARCHAR(50) NOT NULL,
     channel_id UUID NOT NULL,
     CONSTRAINT fk_channel_id
         FOREIGN KEY(channel_id)

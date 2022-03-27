@@ -12,5 +12,51 @@ db_adm_conn.connect();
 
 export const getWZidForChannel = async (channel_name) => {
     var rows = await db_adm_conn.query(`SELECT wz_id from channels WHERE channel_name = '#${channel_name}'`)
+    console.log(rows.rows)
     return rows.rows[0].wz_id
+}
+
+export const add_tokens = async (access_token, refresh_token, expires_in, service_name,  channel_id) => {
+    var expires_at = Math.round(((new Date()).getTime() - 2) / 1000) + expires_in
+    try {
+        await db_adm_conn.query(`DELETE FROM tokens WHERE service_name = '${service_name}' and channel_id = '${channel_id}'`)
+        await db_adm_conn.query(`INSERT INTO tokens (access_token, expires_at, refresh_token, service_name, channel_id) VALUES ('${access_token}', '${expires_at}', '${refresh_token}', '${service_name}', '${channel_id}')`)
+        return true
+    } catch (err) {
+        console.log(err)
+        return false
+    }
+
+}
+
+export const update_tokens = async (access_token, refresh_token, expires_at) => {
+    await db_adm_conn.query(`
+            UPDATE tokens
+            SET (access_token, expires_at) = ('${access_token}', '${expires_at}')
+            WHERE refresh_token = '${refresh_token}'`)
+}
+
+
+export const get_access_token = async (service, channel_name) => {
+    var res = await db_adm_conn.query(`
+    SELECT access_token
+    FROM tokens t
+    JOIN channels c using(channel_id)
+    WHERE c.channel_name = '#${channel_name}' 
+        AND t.service_name = '${service}'`)
+    if (res.rows.length == 0)
+        return null
+    return res.rows[0].access_token
+}
+
+export const get_refresh_token = async (service, channel_name) => {
+    var res = await db_adm_conn.query(`
+    SELECT refresh_token
+    FROM tokens t
+    JOIN channels c using(channel_id)
+    WHERE c.channel_name = '#${channel_name}' 
+        AND t.service_name = '${service}'`)
+    if (res.rows.length == 0)
+        return null
+    return res.rows[0].refresh_token
 }

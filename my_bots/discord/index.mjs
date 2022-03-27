@@ -1,4 +1,4 @@
-import { Client, Intents } from 'discord.js';
+import { Client, Intents, MessageEmbed } from 'discord.js';
 import { getWZStats } from '../wz/index.js';
 export const rules_message = "861174239511969793"
 export const multiplayer_message = "882721689769771038"
@@ -31,7 +31,13 @@ client.on('ready',async () => {
 client.on('guildMemberAdd',   (member) => {
     const role = member.guild.roles.cache.find(r => r.id === anhanger_role)
     member.roles.add(role)
-    member.send(`Hey, pls go to the "🎮𝕣𝕠𝕝𝕖-𝕔𝕙𝕠𝕠𝕤𝕖🎮" https://discord.com/channels/805230159414034482/882618480589934593 Channel and check for which game you are on the server ❤️ Only then you will see the channels related to the game ✌️ Have fun`)
+    const welcomeMessage = new MessageEmbed()
+    .setColor('FFD700').setTitle('Welcome To N🍦Crew! - 🎮𝕣𝕠𝕝𝕖-𝕔𝕙𝕠𝕠𝕤𝕖🎮')
+    .setURL('https://discord.com/channels/805230159414034482/882618480589934593')
+    .setAuthor({name: "ImCookiieZz", iconURL: 'https://i.imgur.com/f4222Wk.jpeg', url: 'https://www.twitch.tv/imcookiiezz'})
+    .setDescription('`Hey, pls go to the "🎮𝕣𝕠𝕝𝕖-𝕔𝕙𝕠𝕠𝕤𝕖🎮"  Channel and check for which game you are on the server ❤️ Only then you will see the channels related to the game ✌️ Have fun')
+    .setFooter({text: 'Bot by ImCookiieZz'})
+    member.send({embeds: [welcomeMessage]})
 });
 
 client.on('messageReactionAdd', (reactionMessage, user) => {

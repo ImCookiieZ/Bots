@@ -8,6 +8,7 @@ const intervall = ()=> {
 intervall()
 export const getWZStats = async (gamertag, platform) => {
     try {
+        console.log(gamertag, platform)
         let dataAll = await API.Warzone.fullData(gamertag, platform ? platform : API.platforms.Activision)
         console.log(dataAll)
         let weekly = dataAll.data.weekly.all.properties
