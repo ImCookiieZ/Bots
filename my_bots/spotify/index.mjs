@@ -7,17 +7,24 @@ export const router = Router();
 const redirect_uri = 'http://localhost:8085/spotify/callback'
 const client_id = process.env.SPOTIFY_ID
 const client_secret = process.env.SPOTIFY_SECRET
+
+
+const getRedirect = async () => {
+    var my_ip = await axios.get('https://checkip.amazonaws.com')
+    my_ip = my_ip.data
+    return my_ip + ':8085/spotify/callbac'
+}
 router.get('/spotify/sub/:channel_id', async (req, res) => {
 
     var state = req.params.channel_id
     var scope = 'playlist-modify-private playlist-modify-public playlist-read-private, user-modify-playback-state user-read-playback-state';
-
+    // var my_ip = await axios.get('checkip.amazonaws.com')
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
             response_type: 'code',
             client_id: process.env.SPOTIFY_ID,
             scope: scope,
-            redirect_uri: redirect_uri,
+            redirect_uri: await getRedirect(),
             state: state
         }))
 });
@@ -35,7 +42,7 @@ router.get('/spotify/callback', async (req, res) => {
                 url: 'https://accounts.spotify.com/api/token',
                 form: {
                     code: code,
-                    redirect_uri: redirect_uri,
+                    redirect_uri: await getRedirect(),
                     grant_type: 'authorization_code'
                 },
                 headers: {
