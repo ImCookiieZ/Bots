@@ -11,8 +11,8 @@ const client_secret = process.env.SPOTIFY_SECRET
 
 const getRedirect = async () => {
     var my_ip = await axios.get('https://checkip.amazonaws.com')
-    my_ip = my_ip.data
-    return my_ip + ':8085/spotify/callbac'
+    my_ip = my_ip.data.replace(/\s/g, '')
+    return 'http://' + my_ip + ':8085/spotify/callback'
 }
 router.get('/spotify/sub/:channel_id', async (req, res) => {
 
