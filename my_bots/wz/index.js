@@ -1,8 +1,7 @@
 import API from "call-of-duty-api";
 
 const intervall = ()=> {
-    API.login(process.env.sso)
-    console.log(process.env.sso)
+    API.login(process.env.SSO)
     // setTimeout(intervall, 5000)
 }
 intervall()

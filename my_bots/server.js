@@ -80,4 +80,8 @@ app.post('/commands', async (req, res) => {
     }
 })
 app.use(router)
+
+app.get('welcome', (req, res) => {
+    res.send('welcome')
+})
 server.listen(process.env.PORT, () => console.log(` server stated on port ${process.env.PORT}`))

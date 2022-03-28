@@ -19,7 +19,7 @@ export const reloadTwitchClient = async () => {
             options: { debug: true },
             identity: {
                 username: 'CookiieZChatBot',
-                password: process.env.token
+                password: process.env.TOKEN
             },
             channels: channels
         });
