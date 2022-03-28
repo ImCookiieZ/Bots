@@ -113,4 +113,4 @@ if (command === 'stats' && args.length > 1) {
 }
 }
 
-await client.login(process.env.BOTTOKEN);
+client.login(process.env.BOTTOKEN);
