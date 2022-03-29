@@ -7,7 +7,7 @@ import { addSongToQueue, skipSong } from '../spotify/commands.js';
 export let client;
 export const reloadTwitchClient = async () => {
     try {
-        var db_res = db_adm_conn.query(`SELECT channel_name FROM channels`).then(() => {
+        var db_res = await db_adm_conn.query(`SELECT channel_name FROM channels`)
         var channels = []
         for (var i = 0; i < db_res.rows.length; i++) {
             channels.push(db_res.rows[i].channel_name);
@@ -21,7 +21,6 @@ export const reloadTwitchClient = async () => {
             channels: channels
         });
         client.connect().catch(console.error);
-    });
     } catch(err) {
         console.log('twitch error');
         console.log(err.stack);
