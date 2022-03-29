@@ -4,31 +4,6 @@ import { getWZStats } from '../wz/index.js';
 import { db_adm_conn, getWZidForChannel } from '../db/index.mjs';
 import { addSongToQueue, skipSong } from '../spotify/commands.js';
 
-const handleCommand = async (command, channel, args) => {
-    if (command === 'stats') {
-        var out = await getWZStats(args.length > 1 ? args[1] : await getWZidForChannel(channel), args[2] ? args[2] : null)
-        for (var i = 0; i < out.length; i++) {
-            client.say(channel,  out[i])
-            await Sleep(1500)
-        }
-    } else if (command === 'add') {
-        var out = await addSongToQueue(channel, args[1])
-        client.say(channel, out)
-    } else if (command === 'skip') {
-        var out = await skipSong(channel)
-        client.say(channel, out)
-    }
-}
-
-function Sleep(milliseconds) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
-const noAwaitSleep = (seconds) => {
-    const now = Date.now() + 1000 * seconds
-    while (Date.now() < now);
-}
-
 export let client;
 export const reloadTwitchClient = async () => {
     try {
@@ -52,6 +27,26 @@ export const reloadTwitchClient = async () => {
         console.log(err.stack);
     }
 };
+const handleCommand = async (command, channel, args) => {
+    if (command === 'stats') {
+        var out = await getWZStats(args.length > 1 ? args[1] : await getWZidForChannel(channel), args[2] ? args[2] : null)
+        for (var i = 0; i < out.length; i++) {
+            client.say(channel,  out[i])
+            await Sleep(1500)
+        }
+    } else if (command === 'add') {
+        var out = await addSongToQueue(channel, args[1])
+        client.say(channel, out)
+    } else if (command === 'skip') {
+        var out = await skipSong(channel)
+        client.say(channel, out)
+    }
+}
+
+function Sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
 await reloadTwitchClient()
 client.on('message', async (channel, tags, message, self) => {
     try {
