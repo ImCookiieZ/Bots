@@ -60,3 +60,20 @@ export const get_refresh_token = async (service, channel_name) => {
         return null
     return res.rows[0].refresh_token
 }
+
+export const get_role = async (message_id) => {
+    var res = await db_adm_conn.query(`SELECT role_dc_id FROM roles WHERE role_message = '${message_id}'`)
+    if (res.rowCount > 0)
+        return res.rows[0].role_dc_id
+    return null
+}
+
+export const create_role = async (message_id, role_name, role_dc_id) => {
+    await db_adm_conn.query(`INSERT INTO roles 
+    (
+        role_name, 
+        role_message, 
+        role_dc_id
+    ) VALUES 
+    ('${role_name}', '${message_id}', '${role_dc_id}');`)
+}

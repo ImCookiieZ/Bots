@@ -29,3 +29,11 @@ CREATE TABLE IF NOT EXISTS commands
             REFERENCES channels(channel_id)
             ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS roles
+(
+    role_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    role_name VARCHAR(20) NOT NULL,
+    role_message VARCHAR(20) NOT NULL,
+    role_dc_id VARCHAR(20) NOT NULL
+)
