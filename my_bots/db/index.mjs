@@ -68,6 +68,13 @@ export const get_role = async (message_id) => {
     return null
 }
 
+export const get_anahnger_role = async () => {
+    var res = await db_adm_conn.query(`SELECT role_dc_id FROM roles WHERE role_name = 'anhaenger'`)
+    if (res.rowCount > 0)
+        return res.rows[0].role_dc_id
+    return null
+}
+
 export const create_role = async (message_id, role_name, role_dc_id) => {
     await db_adm_conn.query(`INSERT INTO roles 
     (

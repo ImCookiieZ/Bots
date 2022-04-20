@@ -1,6 +1,6 @@
 import { Client, Intents, MessageEmbed } from 'discord.js';
 import { getWZStats } from '../wz/index.js';
-import { create_role, get_role } from '../db/index.mjs';
+import { create_role, get_anahnger_role, get_role } from '../db/index.mjs';
 
 export const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES ] });
 
@@ -11,7 +11,8 @@ client.on('ready',async () => {
 });
 
 client.on('guildMemberAdd',   (member) => {
-    const role = member.guild.roles.cache.find(r => r.id === anhanger_role)
+    const role_id = await get_anahnger_role()
+    const role = member.guild.roles.cache.find(r => r.id === role_id)
     member.roles.add(role)
     const welcomeMessage = new MessageEmbed()
     .setColor('FFD700').setTitle('Welcome To N🍦Crew! - 🎮𝕣𝕠𝕝𝕖-𝕔𝕙𝕠𝕠𝕤𝕖🎮')
